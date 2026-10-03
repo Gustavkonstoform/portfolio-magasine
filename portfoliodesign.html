@@ -48,7 +48,6 @@
         }
 
         body {
-            cursor: none;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -59,24 +58,6 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 12px;
-            height: 12px;
-            background-color: #111827;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background-color 0.3s ease;
-        }
-
-        body.dark-theme #custom-cursor {
-            background-color: #ffffff;
         }
 
         #book-wrapper {
@@ -170,7 +151,7 @@
             font-size: 11px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            cursor: none;
+            cursor: pointer;
             opacity: 0.7;
             transition: opacity 0.3s ease, color 0.3s ease;
         }
@@ -199,7 +180,7 @@
             border: none;
             padding: 0;
             margin: 0;
-            cursor: none;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -266,17 +247,6 @@
 
         /* MOBILANPASSNING */
         @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-            #custom-cursor {
-                display: none;
-            }
-
-            .ui-icon-btn, #back-lobby {
-                cursor: pointer;
-            }
-
             #ui-controls {
                 top: 14px;
                 right: 14px;
@@ -312,8 +282,6 @@
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
-    
     <!-- Länk till Library -->
     <a href="index.html" id="back-lobby">← Library</a>
 
@@ -648,24 +616,6 @@
                 initialPinchDist = null;
                 touchStartTime = 0;
             }, { capture: true });
-
-            // --- MUSPEKARE (ENDAST DATOR) ---
-            const cursor = document.getElementById('custom-cursor');
-
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
-
-            const interactiveElements = document.querySelectorAll('.ui-icon-btn, #back-lobby, #book-container');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(1.6)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                });
-            });
 
             // --- TANGENTBORDSNAVIGERING ---
             document.addEventListener('keydown', (e) => {
