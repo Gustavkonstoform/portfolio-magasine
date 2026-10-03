@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Portfolio Magazine</title>
+    <title>Portfolio Magazine — Gustav Pregmark</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -158,6 +158,31 @@
             pointer-events: none;
         }
 
+        /* --- Länk till Library (Uppe till vänster) --- */
+        #back-lobby {
+            position: fixed;
+            top: 24px;
+            left: 28px;
+            z-index: 10000;
+            text-decoration: none;
+            color: #000000;
+            font-family: 'OCR A Extended', 'OCRA', 'Courier New', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #back-lobby {
+            color: #ffffff;
+        }
+
+        #back-lobby:hover {
+            opacity: 1;
+        }
+
         /* --- UI CONTROLS DESIGN (OCR A EXTENDED) --- */
         #ui-controls {
             position: fixed;
@@ -248,7 +273,7 @@
                 display: none;
             }
 
-            .ui-icon-btn {
+            .ui-icon-btn, #back-lobby {
                 cursor: pointer;
             }
 
@@ -256,6 +281,11 @@
                 top: 14px;
                 right: 14px;
                 gap: 18px;
+            }
+
+            #back-lobby {
+                top: 14px;
+                left: 14px;
             }
 
             .btn-label {
@@ -284,6 +314,9 @@
 
     <div id="custom-cursor"></div>
     
+    <!-- Länk till Library -->
+    <a href="index.html" id="back-lobby">← Library</a>
+
     <!-- HÖGERHÖRNSKONTROLLER (MUSIC & THEME) -->
     <div id="ui-controls">
         <button id="toggle-music-btn" class="ui-icon-btn" title="Background Music">
@@ -477,7 +510,7 @@
                 }
             });
 
-            // --- PAPPERSLJUD (Endast på dator/större skärmar för att undvika mobiltrubbel) ---
+            // --- PAPPERSLJUD ---
             const flipAudio = new Audio('audio/newspaper.mp3');
             flipAudio.volume = 0.4;
             flipAudio.preload = 'auto';
@@ -500,7 +533,7 @@
             window.addEventListener('resize', refreshLayout);
             window.addEventListener('orientationchange', refreshLayout);
 
-            // --- ZOOM & DRAG (DATOR & MOBIL) ---
+            // --- ZOOM & DRAG ---
             const bookContainer = document.getElementById('book-container');
             const wrapper = document.getElementById('book-wrapper');
             
@@ -624,7 +657,7 @@
                 cursor.style.top = `${e.clientY}px`;
             });
 
-            const interactiveElements = document.querySelectorAll('.ui-icon-btn, #book-container');
+            const interactiveElements = document.querySelectorAll('.ui-icon-btn, #back-lobby, #book-container');
             interactiveElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.style.transform = 'translate(-50%, -50%) scale(1.6)';
