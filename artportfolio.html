@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Portfolio — Pregmark</title>
+    
+    <!-- Google Fonts: Inter & Monospace -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f4f4f0;
+            --text-color: #1a1a1a;
+            --accent-color: #555;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        header {
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+
+        .back-link {
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .back-link:hover {
+            opacity: 0.6;
+        }
+
+        .project-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .intro-section {
+            margin-bottom: 60px;
+        }
+
+        .intro-section h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            max-width: 600px;
+        }
+
+        .magazine-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .magazine-page {
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .magazine-page img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .audio-player-container {
+            margin-top: 40px;
+            padding: 20px;
+            background: #eaeae6;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .audio-player-container span {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 10px;
+            }
+            .intro-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-link">← Kiosk Lobby</a>
+        <div class="project-title">Art Portfolio</div>
+    </header>
+
+    <main>
+        <section class="intro-section">
+            <h1>Fine Arts & Visuals</h1>
+            <p>Ett urval av konstprojekt, visualiseringar och experimentella uttryck.</p>
+        </section>
+
+        <!-- Bilderna hämtas nu från images_art -->
+        <div class="magazine-layout">
+            <div class="magazine-page">
+                <img src="images_art/bild1.webp" alt="Art Piece 1">
+            </div>
+
+            <div class="magazine-page">
+                <img src="images_art/bild2.webp" alt="Art Piece 2">
+            </div>
+        </div>
+
+        <!-- Ljudet hämtas från den gemensamma audio-mappen -->
+        <div class="audio-player-container">
+            <span>Ambient Audio:</span>
+            <audio controls>
+                <source src="audio/ljudspår.mp3" type="audio/mp3">
+                Din webbläsare stödjer inte ljudelementet.
+            </audio>
+        </div>
+    </main>
+
+</body>
+</html>
