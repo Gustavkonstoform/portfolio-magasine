@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gustav Pregmark — Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'OCR A Extended';
+            src: local('OCR A Extended'), local('OCRAExtended');
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #111827;
+            font-family: 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        body.dark-theme {
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'OCR A Extended', monospace;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 60px 0;
+        }
+
+        h1 {
+            font-family: 'OCR A Extended', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            opacity: 0.6;
+        }
+
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .magazine-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .magazine-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .magazine-cover {
+            width: 100%;
+            aspect-ratio: 1 / 1.414;
+            background-color: #e5e7eb;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        body.dark-theme .magazine-cover {
+            background-color: #222222;
+            border-color: rgba(255,255,255,0.05);
+        }
+
+        .magazine-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .magazine-card:hover .magazine-cover img {
+            transform: scale(1.03);
+        }
+
+        .magazine-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-family: 'OCR A Extended', monospace;
+        }
+
+        .magazine-title {
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .magazine-type {
+            font-size: 11px;
+            opacity: 0.5;
+        }
+
+        footer {
+            font-family: 'OCR A Extended', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 20px; }
+            .container { padding: 30px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span>Gustav Pregmark</span>
+        <span>Index / Library</span>
+    </header>
+
+    <main class="container">
+        <h1>Välj Magasin</h1>
+        
+        <div class="magazine-grid">
+            
+            <!-- Kopplad direkt till portfoliodesign.html i roten -->
+            <a href="portfoliodesign.html" class="magazine-card">
+                <div class="magazine-cover">
+                    <img src="images/1_2x.webp" alt="Portfolio Design Omslag">
+                </div>
+                <div class="magazine-info">
+                    <span class="magazine-title">Industrial Design</span>
+                    <span class="magazine-type">Portfolio '26</span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <span>© 2026</span>
+        <span>All Rights Reserved</span>
+    </footer>
+
+</body>
+</html>
