@@ -2,176 +2,609 @@
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Portfolio — Pregmark</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Art Portfolio — Gustav Pregmark</title>
     
-    <!-- Google Fonts: Inter & Monospace -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --bg-color: #f4f4f0;
-            --text-color: #1a1a1a;
-            --accent-color: #555;
+        @font-face {
+            font-family: 'OCR A Extended';
+            src: local('OCR A Extended'), local('OCRAExtended');
         }
 
         * {
             box-sizing: border-box;
+        }
+
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden !important;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            background-size: 200% 200%;
+            animation: bgShift 25s ease infinite;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-user-select: none;
+            user-select: none;
+            transition: background 0.4s ease;
+        }
+
+        /* MÖRKT TEMA (STUDIO MODE) */
+        body.dark-theme {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%) !important;
+            animation: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            scrollbar-width: none;
         }
 
         body {
-            font-family: 'Inter', sans-serif, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 40px 20px;
-        }
-
-        header {
-            max-width: 900px;
-            margin: 0 auto 40px auto;
+            cursor: none;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 20px;
+            height: 100dvh;
         }
 
-        .back-link {
-            font-family: 'Courier New', Courier, monospace;
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .back-link:hover {
-            opacity: 0.6;
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: #111827;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background-color 0.3s ease;
         }
 
-        .project-title {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+        body.dark-theme #custom-cursor {
+            background-color: #ffffff;
         }
 
-        main {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .intro-section {
-            margin-bottom: 60px;
-        }
-
-        .intro-section h1 {
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 15px;
-            letter-spacing: -0.02em;
-        }
-
-        .intro-section p {
-            font-size: 1.1rem;
-            color: var(--accent-color);
-            max-width: 600px;
-        }
-
-        .magazine-layout {
+        #book-wrapper {
+            width: 100%;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            touch-action: manipulation;
+            overflow: hidden;
         }
 
-        .magazine-page {
-            width: 100%;
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        #book-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+            transform-origin: center center;
+            transition: transform 0.05s ease-out;
+            touch-action: manipulation;
         }
 
-        .magazine-page img {
+        /* DATOR: UPPSLAG (2 SIDOR) */
+        body.mode-spread #book-container {
+            height: 80vh !important;
+            width: calc(80vh * 1.406) !important;
+            max-width: 90vw !important;
+            max-height: calc(90vw / 1.406) !important;
+        }
+
+        /* MOBIL: ENSTAKA SIDA (1 SIDA STÅENDE) */
+        body.mode-single #book-container {
+            height: 75vh !important;
+            width: calc(75vh * 0.703) !important;
+            max-width: 88vw !important;
+            max-height: calc(88vw / 0.703) !important;
+        }
+
+        #book {
+            box-shadow: 
+                inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+                -3px 0 5px rgba(0, 0, 0, 0.03),
+                3px 0 5px rgba(0, 0, 0, 0.03);
+        }
+
+        .page {
+            background-color: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .page img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.01);
+            pointer-events: none;
             display: block;
         }
+        
+        .page--left::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 30px;
+            background: linear-gradient(to left, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none;
+        }
+        .page--right::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            background: linear-gradient(to right, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none;
+        }
 
-        .audio-player-container {
-            margin-top: 40px;
-            padding: 20px;
-            background: #eaeae6;
-            border-radius: 4px;
+        /* --- UI CONTROLS DESIGN (OCR A EXTENDED) --- */
+        #ui-controls {
+            position: fixed;
+            top: 24px;
+            right: 28px;
             display: flex;
+            align-items: flex-start;
+            gap: 28px;
+            z-index: 10000;
+        }
+
+        .ui-icon-btn {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: none;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
+            text-decoration: none;
+            color: #000000;
+            font-family: 'OCR A Extended', 'OCRA', 'Courier New', monospace;
+            outline: none;
+            transition: color 0.3s ease;
         }
 
-        .audio-player-container span {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.85rem;
+        body.dark-theme .ui-icon-btn {
+            color: #ffffff;
+        }
+
+        .btn-label {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            text-align: center;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            height: 24px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            white-space: pre-line;
         }
 
-        audio {
-            width: 100%;
+        /* VÄXELKNAPP (STRECKAD KAPSEL) */
+        .toggle-track {
+            width: 18px;
+            height: 38px;
+            border: 1px dashed #000000;
+            border-radius: 10px;
+            position: relative;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
         }
 
-        @media (max-width: 600px) {
+        body.dark-theme .toggle-track {
+            border-color: #ffffff;
+        }
+
+        .toggle-thumb {
+            width: 14px;
+            height: 14px;
+            background-color: #000000;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+        }
+
+        body.dark-theme .toggle-thumb {
+            background-color: #ffffff;
+        }
+
+        /* AKTIVT LÄGE (CIRKELN GLIDER NER) */
+        .ui-icon-btn.active .toggle-thumb {
+            transform: translateY(20px);
+        }
+
+        /* Länk tillbaka till lobbyn (placerad uppe till vänster) */
+        #back-lobby {
+            position: fixed;
+            top: 24px;
+            left: 28px;
+            z-index: 10000;
+            text-decoration: none;
+            color: #000000;
+            font-family: 'OCR A Extended', 'OCRA', 'Courier New', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #back-lobby {
+            color: #ffffff;
+        }
+
+        #back-lobby:hover {
+            opacity: 1;
+        }
+
+        /* MOBILANPASSNING */
+        @media (max-width: 768px) {
             body {
-                padding: 20px 10px;
+                cursor: auto;
             }
-            .intro-section h1 {
-                font-size: 1.8rem;
+            #custom-cursor {
+                display: none;
+            }
+
+            .ui-icon-btn, #back-lobby {
+                cursor: pointer;
+            }
+
+            #ui-controls {
+                top: 14px;
+                right: 14px;
+                gap: 18px;
+            }
+
+            #back-lobby {
+                top: 14px;
+                left: 14px;
+            }
+
+            .btn-label {
+                font-size: 9px;
+                height: 20px;
+                margin-bottom: 6px;
+            }
+
+            .toggle-track {
+                width: 16px;
+                height: 34px;
+            }
+
+            .toggle-thumb {
+                width: 12px;
+                height: 12px;
+            }
+
+            .ui-icon-btn.active .toggle-thumb {
+                transform: translateY(18px);
             }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="back-link">← Kiosk Lobby</a>
-        <div class="project-title">Art Portfolio</div>
-    </header>
+    <div id="custom-cursor"></div>
+    
+    <!-- Länk till Kiosk Lobby -->
+    <a href="index.html" id="back-lobby">← Lobby</a>
 
-    <main>
-        <section class="intro-section">
-            <h1>Fine Arts & Visuals</h1>
-            <p>Ett urval av konstprojekt, visualiseringar och experimentella uttryck.</p>
-        </section>
+    <!-- HÖGERHÖRNSKONTROLLER (MUSIC & THEME) -->
+    <div id="ui-controls">
+        <button id="toggle-music-btn" class="ui-icon-btn" title="Background Music">
+            <span class="btn-label">MUSIC</span>
+            <div class="toggle-track">
+                <div class="toggle-thumb"></div>
+            </div>
+        </button>
 
-        <!-- Alla 14 bilder -->
-        <div class="magazine-layout">
-            <div class="magazine-page"><img src="images_art/art-1.jpg" alt="Art 1"></div>
-            <div class="magazine-page"><img src="images_art/art-2.jpg" alt="Art 2"></div>
-            <div class="magazine-page"><img src="images_art/art-3.jpg" alt="Art 3"></div>
-            <div class="magazine-page"><img src="images_art/art-4.jpg" alt="Art 4"></div>
-            <div class="magazine-page"><img src="images_art/art-5.jpg" alt="Art 5"></div>
-            <div class="magazine-page"><img src="images_art/art-6.jpg" alt="Art 6"></div>
-            <div class="magazine-page"><img src="images_art/art-7.jpg" alt="Art 7"></div>
-            <div class="magazine-page"><img src="images_art/art-8.jpg" alt="Art 8"></div>
-            <div class="magazine-page"><img src="images_art/art-9.jpg" alt="Art 9"></div>
-            <div class="magazine-page"><img src="images_art/art-10.jpg" alt="Art 10"></div>
-            <div class="magazine-page"><img src="images_art/art-11.jpg" alt="Art 11"></div>
-            <div class="magazine-page"><img src="images_art/art-12.jpg" alt="Art 12"></div>
-            <div class="magazine-page"><img src="images_art/art-13.jpg" alt="Art 13"></div>
-            <div class="magazine-page"><img src="images_art/art-14.jpg" alt="Art 14"></div>
+        <button id="toggle-theme-btn" class="ui-icon-btn" title="Background Theme">
+            <span class="btn-label">THEME</span>
+            <div class="toggle-track">
+                <div class="toggle-thumb"></div>
+            </div>
+        </button>
+    </div>
+
+    <div id="book-wrapper">
+        <div id="book-container">
+            <div id="book">
+                <!-- Dina 14 konstbilder från mappen images-art -->
+                <div class="page"><img src="images-art/art-1.jpg" alt="Art 1"></div>
+                <div class="page"><img src="images-art/art-2.jpg" alt="Art 2"></div>
+                <div class="page"><img src="images-art/art-3.jpg" alt="Art 3"></div>
+                <div class="page"><img src="images-art/art-4.jpg" alt="Art 4"></div>
+                <div class="page"><img src="images-art/art-5.jpg" alt="Art 5"></div>
+                <div class="page"><img src="images-art/art-6.jpg" alt="Art 6"></div>
+                <div class="page"><img src="images-art/art-7.jpg" alt="Art 7"></div>
+                <div class="page"><img src="images-art/art-8.jpg" alt="Art 8"></div>
+                <div class="page"><img src="images-art/art-9.jpg" alt="Art 9"></div>
+                <div class="page"><img src="images-art/art-10.jpg" alt="Art 10"></div>
+                <div class="page"><img src="images-art/art-11.jpg" alt="Art 11"></div>
+                <div class="page"><img src="images-art/art-12.jpg" alt="Art 12"></div>
+                <div class="page"><img src="images-art/art-13.jpg" alt="Art 13"></div>
+                <div class="page"><img src="images-art/art-14.jpg" alt="Art 14"></div>
+            </div>
         </div>
+    </div>
 
-        <!-- Ljudspelare kopplad till den gemensamma audio-mappen -->
-        <div class="audio-player-container">
-            <span>Ambient Audio:</span>
-            <audio controls>
-                <source src="audio/ljudspår.mp3" type="audio/mp3">
-                Din webbläsare stödjer inte ljudelementet.
-            </audio>
-        </div>
-    </main>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2/dist/js/page-flip.browser.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
+            const bookElement = document.getElementById('book');
+            const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+            const toggleMusicBtn = document.getElementById('toggle-music-btn');
+
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+
+            function updateOrientationClass() {
+                if (isMobile()) {
+                    document.body.classList.remove('mode-spread');
+                    document.body.classList.add('mode-single');
+                } else {
+                    document.body.classList.remove('mode-single');
+                    document.body.classList.add('mode-spread');
+                }
+            }
+            updateOrientationClass();
+
+            const pageFlip = new St.PageFlip(bookElement, {
+                width: 595,
+                height: 842,
+                size: "stretch",
+                minWidth: 200,
+                maxWidth: 1200,
+                minHeight: 300,
+                maxHeight: 1600,
+                maxShadowOpacity: 0.4,
+                showCover: true,
+                drawShadow: true,
+                flippingTime: 500,
+                usePortrait: isMobile(),
+                mobileScrollSupport: false,
+                startPage: 0
+            });
+
+            pageFlip.loadFromHTML(bookElement.querySelectorAll('.page'));
+
+            // --- THEME (LIGHT / DARK BACKGROUND) ---
+            toggleThemeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                toggleThemeBtn.classList.toggle('active');
+            });
+
+            // --- MUSIC (DELAD GEMENSAM AUDIO-MAP) ---
+            const playlist = [
+                'audio/audio1.mp3',
+                'audio/audio2.mp3',
+                'audio/audio3.mp3',
+                'audio/audio4.mp3',
+                'audio/audio5.mp3'
+            ];
+
+            let currentTrackIndex = Math.floor(Math.random() * playlist.length);
+            const bgAudio = new Audio(playlist[currentTrackIndex]);
+            bgAudio.volume = 0.25;
+
+            bgAudio.addEventListener('ended', () => {
+                currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+                bgAudio.src = playlist[currentTrackIndex];
+                bgAudio.play().catch(err => console.log("Spelningsfel:", err));
+            });
+
+            toggleMusicBtn.addEventListener('click', () => {
+                if (bgAudio.paused) {
+                    currentTrackIndex = Math.floor(Math.random() * playlist.length);
+                    bgAudio.src = playlist[currentTrackIndex];
+
+                    bgAudio.play().then(() => {
+                        toggleMusicBtn.classList.add('active');
+                    }).catch(err => {
+                        console.log("Kunde inte spela musik:", err);
+                    });
+                } else {
+                    bgAudio.pause();
+                    toggleMusicBtn.classList.remove('active');
+                }
+            });
+
+            // --- PAPPERSLJUD ---
+            const flipAudio = new Audio('audio/newspaper.mp3');
+            flipAudio.volume = 0.4;
+            flipAudio.preload = 'auto';
+
+            pageFlip.on('flip', () => {
+                if (!isMobile()) {
+                    const soundClone = flipAudio.cloneNode();
+                    soundClone.volume = 0.4;
+                    soundClone.play().catch(err => {});
+                }
+            });
+
+            // --- UPPDATERA STORLEK VID ÄNDRING ---
+            function refreshLayout() {
+                updateOrientationClass();
+                setTimeout(() => {
+                    if (pageFlip) pageFlip.update();
+                }, 100);
+            }
+            window.addEventListener('resize', refreshLayout);
+            window.addEventListener('orientationchange', refreshLayout);
+
+            // --- ZOOM & DRAG (DATOR & MOBIL) ---
+            const bookContainer = document.getElementById('book-container');
+            const wrapper = document.getElementById('book-wrapper');
+            
+            let scale = 1;
+            let posX = 0;
+            let posY = 0;
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let initialPinchDist = null;
+
+            let touchStartTime = 0;
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            function updateTransform() {
+                bookContainer.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+            }
+
+            wrapper.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
+                const newScale = scale * zoomFactor;
+
+                if (newScale >= 1 && newScale <= 3.5) {
+                    scale = newScale;
+                    if (scale <= 1.02) {
+                        scale = 1;
+                        posX = 0;
+                        posY = 0;
+                    }
+                    updateTransform();
+                }
+            }, { passive: false });
+
+            wrapper.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    touchStartTime = Date.now();
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }
+
+                if (e.touches.length > 1 || scale > 1.05) {
+                    e.stopPropagation();
+                }
+
+                if (e.touches.length === 2) {
+                    initialPinchDist = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                } else if (e.touches.length === 1 && scale > 1.05) {
+                    isDragging = true;
+                    startX = e.touches[0].clientX - posX;
+                    startY = e.touches[0].clientY - posY;
+                }
+            }, { capture: true, passive: false });
+
+            wrapper.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 1 || scale > 1.05) {
+                    e.stopPropagation();
+                }
+
+                if (e.touches.length === 2 && initialPinchDist) {
+                    e.preventDefault();
+                    const currentDist = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    const zoomFactor = currentDist / initialPinchDist;
+                    const newScale = scale * zoomFactor;
+
+                    if (newScale >= 1 && newScale <= 3.5) {
+                        scale = newScale;
+                        if (scale <= 1.02) {
+                            scale = 1;
+                            posX = 0;
+                            posY = 0;
+                        }
+                        updateTransform();
+                    }
+                    initialPinchDist = currentDist;
+                } else if (e.touches.length === 1 && isDragging && scale > 1.05) {
+                    e.preventDefault();
+                    posX = e.touches[0].clientX - startX;
+                    posY = e.touches[0].clientY - startY;
+                    updateTransform();
+                }
+            }, { capture: true, passive: false });
+
+            wrapper.addEventListener('touchend', (e) => {
+                if (scale > 1.05) {
+                    e.stopPropagation();
+                } else if (touchStartTime > 0 && e.changedTouches.length === 1) {
+                    const duration = Date.now() - touchStartTime;
+                    const distX = Math.abs(e.changedTouches[0].clientX - touchStartX);
+                    const distY = Math.abs(e.changedTouches[0].clientY - touchStartY);
+
+                    if (duration < 250 && distX < 15 && distY < 15) {
+                        const clickX = e.changedTouches[0].clientX;
+                        const screenWidth = window.innerWidth;
+                        
+                        if (clickX > screenWidth / 2) {
+                            pageFlip.flipNext();
+                        } else {
+                            pageFlip.flipPrev();
+                        }
+                    }
+                }
+
+                isDragging = false;
+                initialPinchDist = null;
+                touchStartTime = 0;
+            }, { capture: true });
+
+            // --- MUSPEKARE (ENDAST DATOR) ---
+            const cursor = document.getElementById('custom-cursor');
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+
+            const interactiveElements = document.querySelectorAll('.ui-icon-btn, #back-lobby, #book-container');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.6)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+
+            // --- TANGENTBORDSNAVIGERING ---
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    pageFlip.flipNext();
+                } else if (e.key === 'ArrowLeft') {
+                    pageFlip.flipPrev();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
