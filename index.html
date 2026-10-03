@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gustav Pregmark — Portfolio</title>
+    <title>Art Portfolio — Gustav Pregmark</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,12 +30,6 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 40px;
-            transition: background 0.4s ease, color 0.4s ease;
-        }
-
-        body.dark-theme {
-            background-color: #111111;
-            color: #ffffff;
         }
 
         header {
@@ -48,11 +42,26 @@
             text-transform: uppercase;
         }
 
+        header a {
+            color: inherit;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        header a:hover {
+            opacity: 1;
+        }
+
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             width: 100%;
             padding: 60px 0;
+        }
+
+        .intro {
+            margin-bottom: 50px;
         }
 
         h1 {
@@ -61,71 +70,58 @@
             font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 15px;
             opacity: 0.6;
+            line-height: 1.5;
         }
 
-        .magazine-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .magazine-card {
-            text-decoration: none;
-            color: inherit;
+        /* Magasinets sidor / bildlayout */
+        .magazine-spread {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            transition: transform 0.2s ease;
+            gap: 50px;
         }
 
-        .magazine-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .magazine-cover {
+        .magazine-page {
             width: 100%;
-            aspect-ratio: 1 / 1.414;
-            background-color: #e5e7eb;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.04);
+            padding: 20px;
         }
 
-        body.dark-theme .magazine-cover {
-            background-color: #222222;
-            border-color: rgba(255,255,255,0.05);
-        }
-
-        .magazine-cover img {
+        .magazine-page img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
+            height: auto;
+            display: block;
         }
 
-        .magazine-card:hover .magazine-cover img {
-            transform: scale(1.03);
-        }
-
-        .magazine-info {
+        /* Ljudspelare */
+        .audio-section {
+            margin-top: 60px;
+            padding: 20px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 4px;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-family: 'OCR A Extended', monospace;
+            align-items: center;
+            gap: 20px;
         }
 
-        .magazine-title {
-            font-size: 13px;
+        .audio-label {
+            font-family: 'OCR A Extended', monospace;
+            font-size: 11px;
             letter-spacing: 1px;
             text-transform: uppercase;
+            opacity: 0.6;
+            white-space: nowrap;
         }
 
-        .magazine-type {
-            font-size: 11px;
-            opacity: 0.5;
+        audio {
+            width: 100%;
         }
 
         footer {
@@ -146,37 +142,41 @@
 <body>
 
     <header>
-        <span>Gustav Pregmark</span>
-        <span>Index / Library</span>
+        <a href="index.html">← Kiosk Lobby</a>
+        <span>Art Portfolio</span>
     </header>
 
     <main class="container">
-        <h1>Choose Magazine</h1>
-        
-        <div class="magazine-grid">
-            
-            <!-- Magasin 1: Industrial Design -->
-            <a href="portfoliodesign.html" class="magazine-card">
-                <div class="magazine-cover">
-                    <img src="images/1_2x.webp" alt="Portfolio Design Cover">
-                </div>
-                <div class="magazine-info">
-                    <span class="magazine-title">Industrial Design</span>
-                    <span class="magazine-type">Portfolio</span>
-                </div>
-            </a>
+        <div class="intro">
+            <h1>Fine Arts & Visuals</h1>
+            <p>Ett urval av konstprojekt, visualiseringar och experimentella uttryck.</p>
+        </div>
 
-            <!-- Magasin 2: Art Portfolio -->
-            <a href="artportfolio.html" class="magazine-card">
-                <div class="magazine-cover">
-                    <img src="images_art/art-1.jpg" alt="Art Portfolio Cover">
-                </div>
-                <div class="magazine-info">
-                    <span class="magazine-title">Art Portfolio</span>
-                    <span class="magazine-type">Fine Arts</span>
-                </div>
-            </a>
+        <!-- Alla bildsidor med korrekt mappnamn (images-art) -->
+        <div class="magazine-spread">
+            <div class="magazine-page"><img src="images-art/art-1.jpg" alt="Art 1"></div>
+            <div class="magazine-page"><img src="images-art/art-2.jpg" alt="Art 2"></div>
+            <div class="magazine-page"><img src="images-art/art-3.jpg" alt="Art 3"></div>
+            <div class="magazine-page"><img src="images-art/art-4.jpg" alt="Art 4"></div>
+            <div class="magazine-page"><img src="images-art/art-5.jpg" alt="Art 5"></div>
+            <div class="magazine-page"><img src="images-art/art-6.jpg" alt="Art 6"></div>
+            <div class="magazine-page"><img src="images-art/art-7.jpg" alt="Art 7"></div>
+            <div class="magazine-page"><img src="images-art/art-8.jpg" alt="Art 8"></div>
+            <div class="magazine-page"><img src="images-art/art-9.jpg" alt="Art 9"></div>
+            <div class="magazine-page"><img src="images-art/art-10.jpg" alt="Art 10"></div>
+            <div class="magazine-page"><img src="images-art/art-11.jpg" alt="Art 11"></div>
+            <div class="magazine-page"><img src="images-art/art-12.jpg" alt="Art 12"></div>
+            <div class="magazine-page"><img src="images-art/art-13.jpg" alt="Art 13"></div>
+            <div class="magazine-page"><img src="images-art/art-14.jpg" alt="Art 14"></div>
+        </div>
 
+        <!-- Ljudspelare -->
+        <div class="audio-section">
+            <span class="audio-label">Ambient Audio</span>
+            <audio controls>
+                <source src="audio/ljudspår.mp3" type="audio/mp3">
+                Din webbläsare stödjer inte ljudelementet.
+            </audio>
         </div>
     </main>
 
