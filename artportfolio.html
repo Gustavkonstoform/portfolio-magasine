@@ -128,13 +128,35 @@
             position: relative;
         }
         
-        .page img {
+        /* Omslag och baksida (Stående A4) */
+        .page-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transform: scale(1.01);
             pointer-events: none;
             display: block;
+        }
+
+        /* Uppslag (Liggande A3 som delas på mitten) */
+        .page-spread img.spread-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: auto;
+            max-width: none;
+            pointer-events: none;
+        }
+
+        .page-spread img.spread-right {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            height: 100%;
+            width: auto;
+            max-width: none;
+            pointer-events: none;
         }
         
         .page--left::after {
@@ -158,7 +180,7 @@
             pointer-events: none;
         }
 
-        /* --- UI CONTROLS DESIGN (OCR A EXTENDED) --- */
+        /* --- UI CONTROLS DESIGN --- */
         #ui-controls {
             position: fixed;
             top: 24px;
@@ -204,7 +226,6 @@
             white-space: pre-line;
         }
 
-        /* VÄXELKNAPP (STRECKAD KAPSEL) */
         .toggle-track {
             width: 18px;
             height: 38px;
@@ -234,12 +255,10 @@
             background-color: #ffffff;
         }
 
-        /* AKTIVT LÄGE (CIRKELN GLIDER NER) */
         .ui-icon-btn.active .toggle-thumb {
             transform: translateY(20px);
         }
 
-        /* Länk tillbaka till lobbyn (placerad uppe till vänster) */
         #back-lobby {
             position: fixed;
             top: 24px;
@@ -264,49 +283,16 @@
             opacity: 1;
         }
 
-        /* MOBILANPASSNING */
         @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-            #custom-cursor {
-                display: none;
-            }
-
-            .ui-icon-btn, #back-lobby {
-                cursor: pointer;
-            }
-
-            #ui-controls {
-                top: 14px;
-                right: 14px;
-                gap: 18px;
-            }
-
-            #back-lobby {
-                top: 14px;
-                left: 14px;
-            }
-
-            .btn-label {
-                font-size: 9px;
-                height: 20px;
-                margin-bottom: 6px;
-            }
-
-            .toggle-track {
-                width: 16px;
-                height: 34px;
-            }
-
-            .toggle-thumb {
-                width: 12px;
-                height: 12px;
-            }
-
-            .ui-icon-btn.active .toggle-thumb {
-                transform: translateY(18px);
-            }
+            body { cursor: auto; }
+            #custom-cursor { display: none; }
+            .ui-icon-btn, #back-lobby { cursor: pointer; }
+            #ui-controls { top: 14px; right: 14px; gap: 18px; }
+            #back-lobby { top: 14px; left: 14px; }
+            .btn-label { font-size: 9px; height: 20px; margin-bottom: 6px; }
+            .toggle-track { width: 16px; height: 34px; }
+            .toggle-thumb { width: 12px; height: 12px; }
+            .ui-icon-btn.active .toggle-thumb { transform: translateY(18px); }
         }
     </style>
 </head>
@@ -314,10 +300,8 @@
 
     <div id="custom-cursor"></div>
     
-    <!-- Länk till Kiosk Lobby -->
     <a href="index.html" id="back-lobby">← Lobby</a>
 
-    <!-- HÖGERHÖRNSKONTROLLER (MUSIC & THEME) -->
     <div id="ui-controls">
         <button id="toggle-music-btn" class="ui-icon-btn" title="Background Music">
             <span class="btn-label">MUSIC</span>
@@ -337,21 +321,63 @@
     <div id="book-wrapper">
         <div id="book-container">
             <div id="book">
-                <!-- Dina 14 konstbilder från mappen images-art -->
-                <div class="page"><img src="images-art/art-1.jpg" alt="Art 1"></div>
-                <div class="page"><img src="images-art/art-2.jpg" alt="Art 2"></div>
-                <div class="page"><img src="images-art/art-3.jpg" alt="Art 3"></div>
-                <div class="page"><img src="images-art/art-4.jpg" alt="Art 4"></div>
-                <div class="page"><img src="images-art/art-5.jpg" alt="Art 5"></div>
-                <div class="page"><img src="images-art/art-6.jpg" alt="Art 6"></div>
-                <div class="page"><img src="images-art/art-7.jpg" alt="Art 7"></div>
-                <div class="page"><img src="images-art/art-8.jpg" alt="Art 8"></div>
-                <div class="page"><img src="images-art/art-9.jpg" alt="Art 9"></div>
-                <div class="page"><img src="images-art/art-10.jpg" alt="Art 10"></div>
-                <div class="page"><img src="images-art/art-11.jpg" alt="Art 11"></div>
-                <div class="page"><img src="images-art/art-12.jpg" alt="Art 12"></div>
-                <div class="page"><img src="images-art/art-13.jpg" alt="Art 13"></div>
-                <div class="page"><img src="images-art/art-14.jpg" alt="Art 14"></div>
+                <!-- Framsida (Sida 1: Stående A4) -->
+                <div class="page page-cover">
+                    <img src="images-art/art-1.jpg" alt="Art 1">
+                </div>
+
+                <!-- Uppslag 2 (Art 2: Liggande A3 delas i vänster/höger) -->
+                <div class="page page-spread"><img src="images-art/art-2.jpg" class="spread-left" alt="Art 2 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-2.jpg" class="spread-right" alt="Art 2 Right"></div>
+
+                <!-- Uppslag 3 (Art 3) -->
+                <div class="page page-spread"><img src="images-art/art-3.jpg" class="spread-left" alt="Art 3 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-3.jpg" class="spread-right" alt="Art 3 Right"></div>
+
+                <!-- Uppslag 4 (Art 4) -->
+                <div class="page page-spread"><img src="images-art/art-4.jpg" class="spread-left" alt="Art 4 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-4.jpg" class="spread-right" alt="Art 4 Right"></div>
+
+                <!-- Uppslag 5 (Art 5) -->
+                <div class="page page-spread"><img src="images-art/art-5.jpg" class="spread-left" alt="Art 5 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-5.jpg" class="spread-right" alt="Art 5 Right"></div>
+
+                <!-- Uppslag 6 (Art 6) -->
+                <div class="page page-spread"><img src="images-art/art-6.jpg" class="spread-left" alt="Art 6 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-6.jpg" class="spread-right" alt="Art 6 Right"></div>
+
+                <!-- Uppslag 7 (Art 7) -->
+                <div class="page page-spread"><img src="images-art/art-7.jpg" class="spread-left" alt="Art 7 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-7.jpg" class="spread-right" alt="Art 7 Right"></div>
+
+                <!-- Uppslag 8 (Art 8) -->
+                <div class="page page-spread"><img src="images-art/art-8.jpg" class="spread-left" alt="Art 8 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-8.jpg" class="spread-right" alt="Art 8 Right"></div>
+
+                <!-- Uppslag 9 (Art 9) -->
+                <div class="page page-spread"><img src="images-art/art-9.jpg" class="spread-left" alt="Art 9 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-9.jpg" class="spread-right" alt="Art 9 Right"></div>
+
+                <!-- Uppslag 10 (Art 10) -->
+                <div class="page page-spread"><img src="images-art/art-10.jpg" class="spread-left" alt="Art 10 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-10.jpg" class="spread-right" alt="Art 10 Right"></div>
+
+                <!-- Uppslag 11 (Art 11) -->
+                <div class="page page-spread"><img src="images-art/art-11.jpg" class="spread-left" alt="Art 11 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-11.jpg" class="spread-right" alt="Art 11 Right"></div>
+
+                <!-- Uppslag 12 (Art 12) -->
+                <div class="page page-spread"><img src="images-art/art-12.jpg" class="spread-left" alt="Art 12 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-12.jpg" class="spread-right" alt="Art 12 Right"></div>
+
+                <!-- Uppslag 13 (Art 13) -->
+                <div class="page page-spread"><img src="images-art/art-13.jpg" class="spread-left" alt="Art 13 Left"></div>
+                <div class="page page-spread"><img src="images-art/art-13.jpg" class="spread-right" alt="Art 13 Right"></div>
+
+                <!-- Baksida (Art 14: Stående A4) -->
+                <div class="page page-cover">
+                    <img src="images-art/art-14.jpg" alt="Art 14">
+                </div>
             </div>
         </div>
     </div>
@@ -398,13 +424,13 @@
 
             pageFlip.loadFromHTML(bookElement.querySelectorAll('.page'));
 
-            // --- THEME (LIGHT / DARK BACKGROUND) ---
+            // --- THEME ---
             toggleThemeBtn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-theme');
                 toggleThemeBtn.classList.toggle('active');
             });
 
-            // --- MUSIC (DELAD GEMENSAM AUDIO-MAP) ---
+            // --- MUSIC ---
             const playlist = [
                 'audio/audio1.mp3',
                 'audio/audio2.mp3',
@@ -452,7 +478,6 @@
                 }
             });
 
-            // --- UPPDATERA STORLEK VID ÄNDRING ---
             function refreshLayout() {
                 updateOrientationClass();
                 setTimeout(() => {
@@ -462,7 +487,7 @@
             window.addEventListener('resize', refreshLayout);
             window.addEventListener('orientationchange', refreshLayout);
 
-            // --- ZOOM & DRAG (DATOR & MOBIL) ---
+            // --- ZOOM & DRAG ---
             const bookContainer = document.getElementById('book-container');
             const wrapper = document.getElementById('book-wrapper');
             
@@ -578,7 +603,7 @@
                 touchStartTime = 0;
             }, { capture: true });
 
-            // --- MUSPEKARE (ENDAST DATOR) ---
+            // --- MUSPEKARE ---
             const cursor = document.getElementById('custom-cursor');
 
             document.addEventListener('mousemove', (e) => {
